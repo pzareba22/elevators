@@ -45,7 +45,6 @@ const App: React.FC<{}> = () => {
                             }}
                             value={formData[i]}
                         />
-                        {/* <input type="submit" value="Zmień" /> */}
                     </form>
                 ))}
             </div>
