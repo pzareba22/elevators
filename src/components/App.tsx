@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Elevator from "./Elevator";
+import ElevatorController from "../logic/ElevatorController";
 import "../styles/App.sass";
 
 const ELEVATOR_NUM = 5;
 const MAX_FLOOR = 5;
 
+type FormData = {
+    elevatorNo: number;
+    floorTo: number;
+    floorFrom: number;
+};
+
 const App: React.FC<{}> = () => {
     const [floors, setFloors] = useState(new Array(ELEVATOR_NUM).fill(0));
-    const [formData, setFormData] = useState(new Array(ELEVATOR_NUM).fill(0));
+    const [formData, setFormData] = useState<FormData>({
+        elevatorNo: 0,
+        floorFrom: 0,
+        floorTo: 0,
+    });
+    const elevatorController = useMemo(
+        () => new ElevatorController(ELEVATOR_NUM),
+        []
+    );
 
     const updateFloors = (data: Array<number>) => {
         const newFloors = [...data];
@@ -15,11 +30,13 @@ const App: React.FC<{}> = () => {
     };
 
     // Czy to musi być w state?
-    const updateFormData = (floorIndex: number, floor: number) => {
-        if (floor > MAX_FLOOR || floor < 0) return;
-        const newFormData = [...formData];
-        newFormData[floorIndex] = floor;
-        setFormData(newFormData);
+    const updateFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const name = e.target.id;
+        const value = parseInt(e.target.value);
+        if (e.target.id == "elevatorNo" && (value < 0 || value >= ELEVATOR_NUM))
+            return;
+        if (value < 0 || value > MAX_FLOOR) return;
+        setFormData((values) => ({ ...values, [name]: value }));
     };
 
     return (
@@ -27,31 +44,53 @@ const App: React.FC<{}> = () => {
             <div className="elevatorsContainer">
                 {floors.map((floor, i) => (
                     <div className="elevatorContainer" key={i}>
-                        <h3>{i + 1}</h3>
+                        <h3>{i}</h3>
                         <Elevator floor={floor} />
                     </div>
                 ))}
             </div>
             <div className="elevatorControls">
-                {floors.map((floor, i) => (
-                    <form key={i}>
-                        <label htmlFor="floorInput">Winda {i + 1}</label>
-                        <input
-                            type="number"
-                            name="floorInput"
-                            id="floorInput"
-                            onChange={(e) => {
-                                updateFormData(i, parseInt(e.target.value));
-                            }}
-                            value={formData[i]}
-                        />
-                    </form>
-                ))}
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        console.log("Adding a stop");
+                        console.log(formData);
+                        elevatorController.addElevatorStop(
+                            formData.elevatorNo,
+                            formData.floorFrom,
+                            formData.floorTo
+                        );
+                    }}
+                >
+                    <label htmlFor="elevatorNo">numer windy</label>
+                    <input
+                        type="number"
+                        id="elevatorNo"
+                        onChange={(e) => updateFormData(e)}
+                        value={formData.elevatorNo}
+                    />
+                    <label htmlFor="floorTo">piętro do</label>
+                    <input
+                        type="number"
+                        id="floorTo"
+                        onChange={(e) => updateFormData(e)}
+                        value={formData.floorTo}
+                    />
+                    <label htmlFor="floorFrom">piętro z</label>
+                    <input
+                        type="number"
+                        id="floorFrom"
+                        onChange={(e) => updateFormData(e)}
+                        value={formData.floorFrom}
+                    />
+                    <input type="submit" value="Wyślij żądanie" />
+                </form>
             </div>
             <button
                 className="submitButton"
                 onClick={() => {
-                    updateFloors(formData);
+                    elevatorController.update();
+                    setFloors(elevatorController.getElevatorPositoins());
                 }}
             >
                 Zmień
