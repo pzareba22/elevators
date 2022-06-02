@@ -21,7 +21,7 @@ class Elevator {
     addStop(floorFrom: number, floorTo: number) {
         if (floorFrom === floorTo) return;
         const fromIndex = findIndex(this.stops, floorFrom);
-        if (this.stops[fromIndex] != floorFrom) {
+        if (this.stops[fromIndex] != floorFrom && this.floor != floorFrom) {
             this.stops.splice(fromIndex, 0, floorFrom);
         }
         const toIndex = findIndex(this.stops, floorTo);
@@ -35,8 +35,6 @@ class Elevator {
             return;
         }
         const currentPositionIndex = findIndex(this.stops, this.floor);
-        console.log(`current position: ${this.floor}: ${currentPositionIndex}`);
-        console.log(this.stops);
         // Zmienić nazwę tego
         let newPosition;
         if (this.direction === "DOWN") {
@@ -75,8 +73,6 @@ class Elevator {
         //     }
         // }
         this.floor = newPosition;
-        console.log(`new position: ${this.floor}: ${currentPositionIndex}`);
-        console.log(this.stops);
     }
 }
 
