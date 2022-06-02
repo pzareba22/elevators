@@ -10,7 +10,6 @@ class ElevatorController {
         for (let i = 0; i < elevatorsNumber; i++) {
             this.elevators[i] = new Elevator();
         }
-        console.log("Done initializing");
     }
 
     addElevatorStop(
