@@ -1,4 +1,4 @@
-import { DirectionType, findIndex } from "./constants";
+import { DirectionType, findIndex } from "./utils";
 
 class Elevator {
     private floor: number;
