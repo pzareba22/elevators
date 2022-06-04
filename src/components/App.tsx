@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import Elevator from "./Elevator";
 import ElevatorController from "../logic/ElevatorController";
 import "../styles/App.sass";
+import RequestBox from "./RequestBox";
 
 const ELEVATOR_NUM = 5;
 const MAX_FLOOR = 5;
@@ -19,17 +20,18 @@ const App: React.FC<{}> = () => {
         floorFrom: 0,
         floorTo: 0,
     });
+    const [requests, setRequests] = useState<Array<Array<number>>>([]);
     const elevatorController = useMemo(
         () => new ElevatorController(ELEVATOR_NUM),
         []
     );
 
+    // Czy to jest potrzebne?
     const updateFloors = (data: Array<number>) => {
         const newFloors = [...data];
         setFloors(newFloors);
     };
 
-    // Czy to musi być w state?
     const updateFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.id;
         const value = parseInt(e.target.value);
@@ -60,6 +62,8 @@ const App: React.FC<{}> = () => {
                             formData.floorFrom,
                             formData.floorTo
                         );
+                        console.log(elevatorController.getRequests());
+                        setRequests([...elevatorController.getRequests()]);
                     }}
                 >
                     <label htmlFor="elevatorNo">numer windy</label>
@@ -90,11 +94,23 @@ const App: React.FC<{}> = () => {
                 className="submitButton"
                 onClick={() => {
                     elevatorController.update();
-                    setFloors(elevatorController.getElevatorPositoins());
+                    setFloors(elevatorController.getElevatorPositions());
                 }}
             >
                 Zmień
             </button>
+            <div className="requests">
+                {requests.map((request, i) => {
+                    return (
+                        <RequestBox
+                            elevatorNo={request[0]}
+                            floorFrom={request[1]}
+                            floorTo={request[2]}
+                            key={i}
+                        />
+                    );
+                })}
+            </div>
         </div>
     );
 };
