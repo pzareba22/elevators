@@ -1,5 +1,10 @@
 export type DirectionType = "UP" | "DOWN";
 
+export type FloorEntry = {
+    floor_no: number;
+    floors_to: Array<Number>;
+};
+
 export const findIndex = (arr: Array<number>, value: number) => {
     let left = 0;
     let right = arr.length;
