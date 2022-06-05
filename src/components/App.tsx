@@ -26,12 +26,6 @@ const App: React.FC<{}> = () => {
         []
     );
 
-    // Czy to jest potrzebne?
-    const updateFloors = (data: Array<number>) => {
-        const newFloors = [...data];
-        setFloors(newFloors);
-    };
-
     const updateFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.id;
         const value = parseInt(e.target.value);
