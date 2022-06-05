@@ -29,7 +29,8 @@ class ElevatorController {
     }
 
     getRequests() {
-        console.log(this.requests);
+        // console.log("requests");
+        // console.log(this.requests);
         return this.requests.flat();
     }
 
