@@ -1,6 +1,4 @@
-import { assert } from "console";
 import Elevator from "../logic/Elevator";
-import ElevatorController from "../logic/ElevatorController";
 
 test("Go up one floor", () => {
     const elevator = new Elevator();
