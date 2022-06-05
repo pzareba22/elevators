@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { FormData } from "./constants";
 
 type Props = {
@@ -7,55 +8,29 @@ type Props = {
     submitData: (data: FormData) => void;
 };
 
-const Controls: React.FC<Props> = (props) => {
-    const [formData, setFormData] = useState<FormData>({
-        elevatorNo: 0,
-        floorFrom: 0,
-        floorTo: 0,
-    });
+type Inputs = {
+    elevatorNo: number;
+    floorFrom: number;
+    floorTo: number;
+};
 
-    const updateFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const name = e.target.id;
-        const value = parseInt(e.target.value);
-        if (
-            e.target.id == "elevatorNo" &&
-            (value < 0 || value >= props.elevatorNum)
-        )
-            return;
-        if (value < 0 || value > props.maxFloor) return;
-        setFormData((values) => ({ ...values, [name]: value }));
-    };
+const Controls: React.FC<Props> = ({ elevatorNum, maxFloor, submitData }) => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<Inputs>();
 
     return (
         <div className="elevatorControls">
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    props.submitData(formData);
-                }}
-            >
-                <label htmlFor="elevatorNo">numer windy</label>
-                <input
-                    type="number"
-                    id="elevatorNo"
-                    onChange={(e) => updateFormData(e)}
-                    value={formData.elevatorNo}
-                />
-                <label htmlFor="floorTo">piętro do</label>
-                <input
-                    type="number"
-                    id="floorTo"
-                    onChange={(e) => updateFormData(e)}
-                    value={formData.floorTo}
-                />
-                <label htmlFor="floorFrom">piętro z</label>
-                <input
-                    type="number"
-                    id="floorFrom"
-                    onChange={(e) => updateFormData(e)}
-                    value={formData.floorFrom}
-                />
-                <input type="submit" value="Wyślij żądanie" />
+            <form onSubmit={handleSubmit(submitData)}>
+                <label>id Windy:</label>
+                <input {...register("elevatorNo")} />
+                <label>Piętro z:</label>
+                <input {...register("floorFrom")} />
+                <label>Piętro do:</label>
+                <input {...register("floorTo")} />
+                <input type="submit" value="wyślij zapytanie" />
             </form>
         </div>
     );
