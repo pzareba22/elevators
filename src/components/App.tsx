@@ -3,15 +3,11 @@ import Elevator from "./Elevator";
 import ElevatorController from "../logic/ElevatorController";
 import "../styles/App.sass";
 import RequestBox from "./RequestBox";
+import Controls from "./Controls";
+import { FormData } from "./constants";
 
 const ELEVATOR_NUM = 5;
 const MAX_FLOOR = 5;
-
-type FormData = {
-    elevatorNo: number;
-    floorTo: number;
-    floorFrom: number;
-};
 
 const App: React.FC<{}> = () => {
     const [floors, setFloors] = useState(new Array(ELEVATOR_NUM).fill(0));
@@ -26,13 +22,13 @@ const App: React.FC<{}> = () => {
         []
     );
 
-    const updateFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const name = e.target.id;
-        const value = parseInt(e.target.value);
-        if (e.target.id == "elevatorNo" && (value < 0 || value >= ELEVATOR_NUM))
-            return;
-        if (value < 0 || value > MAX_FLOOR) return;
-        setFormData((values) => ({ ...values, [name]: value }));
+    const onFormSubmit = (data: FormData) => {
+        elevatorController.addElevatorStop(
+            data.elevatorNo,
+            data.floorFrom,
+            data.floorTo
+        );
+        setRequests([...elevatorController.getRequests()]);
     };
 
     return (
@@ -45,45 +41,11 @@ const App: React.FC<{}> = () => {
                     </div>
                 ))}
             </div>
-            <div className="elevatorControls">
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        // console.log("Adding a stop");
-                        // console.log(formData);
-                        elevatorController.addElevatorStop(
-                            formData.elevatorNo,
-                            formData.floorFrom,
-                            formData.floorTo
-                        );
-                        // console.log(elevatorController.getRequests());
-                        setRequests([...elevatorController.getRequests()]);
-                    }}
-                >
-                    <label htmlFor="elevatorNo">numer windy</label>
-                    <input
-                        type="number"
-                        id="elevatorNo"
-                        onChange={(e) => updateFormData(e)}
-                        value={formData.elevatorNo}
-                    />
-                    <label htmlFor="floorTo">piętro do</label>
-                    <input
-                        type="number"
-                        id="floorTo"
-                        onChange={(e) => updateFormData(e)}
-                        value={formData.floorTo}
-                    />
-                    <label htmlFor="floorFrom">piętro z</label>
-                    <input
-                        type="number"
-                        id="floorFrom"
-                        onChange={(e) => updateFormData(e)}
-                        value={formData.floorFrom}
-                    />
-                    <input type="submit" value="Wyślij żądanie" />
-                </form>
-            </div>
+            <Controls
+                elevatorNum={ELEVATOR_NUM}
+                maxFloor={MAX_FLOOR}
+                submitData={onFormSubmit}
+            />
             <button
                 className="submitButton"
                 onClick={() => {
