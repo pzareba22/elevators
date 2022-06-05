@@ -7,7 +7,7 @@ type Props = {
     submitData: (data: FormData) => void;
 };
 
-const Controls = (props: Props) => {
+const Controls: React.FC<Props> = (props) => {
     const [formData, setFormData] = useState<FormData>({
         elevatorNo: 0,
         floorFrom: 0,
