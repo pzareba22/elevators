@@ -1,8 +1,8 @@
-import { DirectionType, findIndex } from "./utils";
+import { DirectionType, findIndex, FloorEntry, insertSorted } from "./utils";
 
 class Elevator {
     private floor: number;
-    readonly stops: Array<number>;
+    readonly stops: Array<FloorEntry>;
     private direction: DirectionType;
     constructor() {
         this.floor = 0;
@@ -18,15 +18,33 @@ class Elevator {
         return this.floor;
     }
 
+    // Zrobic overload
     addStop(floorFrom: number, floorTo: number) {
+        // console.log(`adding a stop(${floorFrom}, ${floorTo})`);
         if (floorFrom === floorTo) return;
-        const fromIndex = findIndex(this.stops, floorFrom);
-        if (this.stops[fromIndex] != floorFrom && this.floor != floorFrom) {
-            this.stops.splice(fromIndex, 0, floorFrom);
+        let newEntry: FloorEntry;
+        if (floorFrom === this.floor) {
+            newEntry = {
+                floor_no: floorTo,
+                floors_to: [],
+            };
+        } else {
+            newEntry = {
+                floor_no: floorFrom,
+                floors_to: floorTo != -1 ? [floorTo] : [],
+            };
         }
-        const toIndex = findIndex(this.stops, floorTo);
-        if (this.stops[toIndex] != floorTo) {
-            this.stops.splice(toIndex, 0, floorTo);
+        // console.log(newEntry);
+
+        if (this.stops.length == 0) {
+            this.stops.push(newEntry);
+            return;
+        }
+        const fromIndex = findIndex(this.stops, floorFrom);
+        if (this.stops[fromIndex].floor_no == floorFrom) {
+            insertSorted(this.stops[fromIndex].floors_to, floorTo);
+        } else {
+            this.stops.splice(fromIndex, 0, newEntry);
         }
     }
 
@@ -38,7 +56,10 @@ class Elevator {
         // Zmienić nazwę tego
         let newPosition;
         if (this.direction === "DOWN") {
-            if (currentPositionIndex === 0 && this.stops[0] > this.floor) {
+            if (
+                currentPositionIndex === 0 &&
+                this.stops[0].floor_no > this.floor
+            ) {
                 this.direction = "UP";
                 newPosition = this.stops[currentPositionIndex];
                 this.stops.splice(currentPositionIndex, 1);
@@ -56,23 +77,10 @@ class Elevator {
                 this.stops.splice(currentPositionIndex, 1);
             }
         }
-
-        // if (this.direction == "DOWN") {
-        //     if (currentPositionIndex == 0) {
-        //         this.direction = "UP";
-        //         newPosition = this.stops[currentPositionIndex + 1];
-        //     } else {
-        //         newPosition = this.stops[currentPositionIndex - 1];
-        //     }
-        // } else {
-        //     if (currentPositionIndex === this.stops.length) {
-        //         this.direction = "DOWN";
-        //         newPosition = this.stops[currentPositionIndex - 1];
-        //     } else {
-        //         newPosition = this.stops[currentPositionIndex + 1];
-        //     }
-        // }
-        this.floor = newPosition;
+        this.floor = newPosition.floor_no;
+        for (let i = 0; i < newPosition.floors_to.length; i++) {
+            this.addStop(newPosition.floors_to[i], -1);
+        }
     }
 }
 
