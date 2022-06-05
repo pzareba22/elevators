@@ -1,23 +1,24 @@
 import React, { useMemo, useState } from "react";
-import Elevator from "./Elevator";
-import ElevatorController from "../logic/ElevatorController";
-import "../styles/App.sass";
-import Controls from "./Controls";
-import { FormData } from "./constants";
-import RequestesContainer from "./RequestesContainer";
+import Elevator from "./components/Elevator";
+import ElevatorController from "./logic/ElevatorController";
+import "./styles/App.sass";
+import Controls from "./components/Controls";
+import { FormData } from "./components/constants";
+import RequestesContainer from "./components/RequestesContainer";
+import { RequestType } from "./logic/types";
 
 const ELEVATOR_NUM = 5;
 const MAX_FLOOR = 5;
 
 const App: React.FC<{}> = () => {
     const [floors, setFloors] = useState(new Array(ELEVATOR_NUM).fill(0));
-    const [requests, setRequests] = useState<Array<Array<number>>>([]);
+    const [requests, setRequests] = useState<RequestType[]>([]);
     const elevatorController = useMemo(
         () => new ElevatorController(ELEVATOR_NUM),
         []
     );
 
-    const onFormSubmit = (data: FormData) => {
+    const handleFormSubmit = (data: FormData) => {
         elevatorController.addElevatorStop(
             data.elevatorNo,
             data.floorFrom,
@@ -39,7 +40,7 @@ const App: React.FC<{}> = () => {
             <Controls
                 elevatorNum={ELEVATOR_NUM}
                 maxFloor={MAX_FLOOR}
-                submitData={onFormSubmit}
+                submitData={handleFormSubmit}
             />
             <button
                 className="submitButton"
