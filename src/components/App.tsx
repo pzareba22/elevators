@@ -95,6 +95,7 @@ const App: React.FC<{}> = () => {
                 onClick={() => {
                     elevatorController.update();
                     setFloors(elevatorController.getElevatorPositions());
+                    setRequests([...elevatorController.getRequests()]);
                 }}
             >
                 Zmień
@@ -103,9 +104,9 @@ const App: React.FC<{}> = () => {
                 {requests.map((request, i) => {
                     return (
                         <RequestBox
-                            elevatorNo={request[0]}
-                            floorFrom={request[1]}
-                            floorTo={request[2]}
+                            elevatorNo={i}
+                            floorFrom={request[0]}
+                            floorTo={request[1]}
                             key={i}
                         />
                     );
