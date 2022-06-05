@@ -20,7 +20,6 @@ class Elevator {
 
     // Zrobic overload
     addStop(floorFrom: number, floorTo: number) {
-        // console.log(`adding a stop(${floorFrom}, ${floorTo})`);
         if (floorFrom === floorTo) return;
         let newEntry: FloorEntry;
         if (floorFrom === this.floor) {
@@ -34,15 +33,11 @@ class Elevator {
                 floors_to: floorTo != -1 ? [floorTo] : [],
             };
         }
-        // console.log(newEntry);
-
         if (this.stops.length == 0) {
             this.stops.push(newEntry);
             return;
         }
         const fromIndex = findIndex(this.stops, floorFrom);
-        // console.log(this.stops);
-        // console.log(`Index: ${fromIndex}, Floor: ${floorFrom}`);
         if (
             fromIndex < this.stops.length &&
             this.stops[fromIndex].floor_no == floorFrom
@@ -58,7 +53,6 @@ class Elevator {
             return;
         }
         const currentPositionIndex = findIndex(this.stops, this.floor);
-        // Zmienić nazwę tego
         let newPosition;
         if (this.direction === "DOWN") {
             if (
