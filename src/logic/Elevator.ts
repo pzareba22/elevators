@@ -41,7 +41,12 @@ class Elevator {
             return;
         }
         const fromIndex = findIndex(this.stops, floorFrom);
-        if (this.stops[fromIndex].floor_no == floorFrom) {
+        // console.log(this.stops);
+        // console.log(`Index: ${fromIndex}, Floor: ${floorFrom}`);
+        if (
+            fromIndex < this.stops.length &&
+            this.stops[fromIndex].floor_no == floorFrom
+        ) {
             insertSorted(this.stops[fromIndex].floors_to, floorTo);
         } else {
             this.stops.splice(fromIndex, 0, newEntry);
