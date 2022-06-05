@@ -2,7 +2,6 @@ import React, { useMemo, useState } from "react";
 import Elevator from "./Elevator";
 import ElevatorController from "../logic/ElevatorController";
 import "../styles/App.sass";
-import RequestBox from "./RequestBox";
 import Controls from "./Controls";
 import { FormData } from "./constants";
 import RequestesContainer from "./RequestesContainer";
