@@ -55,14 +55,14 @@ const App: React.FC<{}> = () => {
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        console.log("Adding a stop");
-                        console.log(formData);
+                        // console.log("Adding a stop");
+                        // console.log(formData);
                         elevatorController.addElevatorStop(
                             formData.elevatorNo,
                             formData.floorFrom,
                             formData.floorTo
                         );
-                        console.log(elevatorController.getRequests());
+                        // console.log(elevatorController.getRequests());
                         setRequests([...elevatorController.getRequests()]);
                     }}
                 >
