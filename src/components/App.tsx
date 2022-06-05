@@ -5,17 +5,13 @@ import "../styles/App.sass";
 import RequestBox from "./RequestBox";
 import Controls from "./Controls";
 import { FormData } from "./constants";
+import RequestesContainer from "./RequestesContainer";
 
 const ELEVATOR_NUM = 5;
 const MAX_FLOOR = 5;
 
 const App: React.FC<{}> = () => {
     const [floors, setFloors] = useState(new Array(ELEVATOR_NUM).fill(0));
-    const [formData, setFormData] = useState<FormData>({
-        elevatorNo: 0,
-        floorFrom: 0,
-        floorTo: 0,
-    });
     const [requests, setRequests] = useState<Array<Array<number>>>([]);
     const elevatorController = useMemo(
         () => new ElevatorController(ELEVATOR_NUM),
@@ -56,18 +52,7 @@ const App: React.FC<{}> = () => {
             >
                 Zmień
             </button>
-            <div className="requests">
-                {requests.map((request, i) => {
-                    return (
-                        <RequestBox
-                            elevatorNo={i}
-                            floorFrom={request[0]}
-                            floorTo={request[1]}
-                            key={i}
-                        />
-                    );
-                })}
-            </div>
+            <RequestesContainer requests={requests} />
         </div>
     );
 };
