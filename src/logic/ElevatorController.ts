@@ -1,18 +1,18 @@
 import Elevator from "./Elevator";
+import { RequestType } from "./types";
 
 class ElevatorController {
     readonly elevatorsNumber: number;
     // Pivate or ES6 private?
     private readonly elevators: Array<Elevator>;
-    private readonly requests: Array<Array<Array<number>>>;
+    private readonly requests: RequestType[][];
     constructor(elevatorsNumber: number) {
         this.elevatorsNumber = elevatorsNumber;
-        this.elevators = new Array(elevatorsNumber);
-        this.requests = new Array();
-        for (let i = 0; i < elevatorsNumber; i++) {
-            this.elevators[i] = new Elevator();
-            this.requests[i] = [];
-        }
+        this.elevators = Array.from(
+            { length: elevatorsNumber },
+            () => new Elevator()
+        );
+        this.requests = Array.from({ length: elevatorsNumber }, () => []);
     }
 
     addElevatorStop(
@@ -21,7 +21,10 @@ class ElevatorController {
         floorTo: number
     ) {
         this.elevators[elevatorNumber].addStop(floorFrom, floorTo);
-        this.requests[elevatorNumber].push([floorFrom, floorTo]);
+        this.requests[elevatorNumber].push({
+            floorFrom: floorFrom,
+            floorTo: floorTo,
+        });
     }
 
     getElevatorPositions() {
@@ -29,8 +32,6 @@ class ElevatorController {
     }
 
     getRequests() {
-        // console.log("requests");
-        // console.log(this.requests);
         return this.requests.flat();
     }
 
@@ -38,7 +39,9 @@ class ElevatorController {
         for (let i = 0; i < this.elevators.length; i++) {
             this.elevators[i].move();
             for (let j = 0; j < this.requests[i].length; j++) {
-                if (this.requests[i][j][1] === this.elevators[i].getFloor()) {
+                if (
+                    this.requests[i][j].floorTo === this.elevators[i].getFloor()
+                ) {
                     this.requests[i].splice(j, 1);
                     break;
                 }
