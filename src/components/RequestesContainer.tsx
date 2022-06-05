@@ -1,8 +1,9 @@
 import React from "react";
+import { RequestType } from "../logic/types";
 import RequestBox from "./RequestBox";
 
 type Props = {
-    requests: Array<Array<number>>;
+    requests: RequestType[];
 };
 
 const RequestesContainer: React.FC<Props> = ({ requests }) => {
@@ -11,9 +12,7 @@ const RequestesContainer: React.FC<Props> = ({ requests }) => {
             {requests.map((request, i) => {
                 return (
                     <RequestBox
-                        elevatorNo={i}
-                        floorFrom={request[0]}
-                        floorTo={request[1]}
+                        request={{ ...request, elevatorNo: i }}
                         key={i}
                     />
                 );

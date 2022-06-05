@@ -1,18 +1,17 @@
 import React from "react";
 import "../styles/RequestBox.sass";
+import { ElevatorRequest } from "./types";
 
 type Props = {
-    elevatorNo: number;
-    floorFrom: number;
-    floorTo: number;
+    request: ElevatorRequest;
 };
 
-const RequestBox: React.FC<Props> = (props) => {
+const RequestBox: React.FC<Props> = ({ request }) => {
     return (
         <div className="requestBox">
-            <p>{props.elevatorNo}</p>
-            <p>From: {props.floorFrom}</p>
-            <p>To: {props.floorTo}</p>
+            <p>{request.elevatorNo}</p>
+            <p>From: {request.floorFrom}</p>
+            <p>To: {request.floorTo}</p>
         </div>
     );
 };
