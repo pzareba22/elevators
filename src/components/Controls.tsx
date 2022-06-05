@@ -25,11 +25,32 @@ const Controls: React.FC<Props> = ({ elevatorNum, maxFloor, submitData }) => {
         <div className="elevatorControls">
             <form onSubmit={handleSubmit(submitData)}>
                 <label>id Windy:</label>
-                <input {...register("elevatorNo")} />
+                <input
+                    type="number"
+                    {...register("elevatorNo", {
+                        required: true,
+                        min: 0,
+                        max: elevatorNum - 1,
+                    })}
+                />
                 <label>Piętro z:</label>
-                <input {...register("floorFrom")} />
+                <input
+                    type="number"
+                    {...register("floorFrom", {
+                        required: true,
+                        min: 0,
+                        max: maxFloor,
+                    })}
+                />
                 <label>Piętro do:</label>
-                <input {...register("floorTo")} />
+                <input
+                    type="number"
+                    {...register("floorTo", {
+                        required: true,
+                        min: 0,
+                        max: maxFloor,
+                    })}
+                />
                 <input type="submit" value="wyślij zapytanie" />
             </form>
         </div>
