@@ -3,7 +3,7 @@ import Elevator from "./components/Elevator";
 import ElevatorController from "./logic/ElevatorController";
 import "./styles/App.sass";
 import Controls from "./components/Controls";
-import { FormData } from "./components/constants";
+import { FormData } from "./components/types";
 import RequestesContainer from "./components/RequestesContainer";
 import { RequestType } from "./logic/types";
 

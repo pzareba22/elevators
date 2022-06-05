@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FormData } from "./constants";
+import { FormData } from "./types";
 
 type Props = {
     elevatorNum: number;
