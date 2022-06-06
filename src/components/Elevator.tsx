@@ -9,8 +9,10 @@ type Props = {
 const elevatorPadding = 0.2;
 
 const Elevator: React.FC<Props> = ({ floor, maxFloor }) => {
-    const shaftPos = floor ? floor * 5 + elevatorPadding : elevatorPadding;
     const floorHeight = (30 + 2 * elevatorPadding) / (maxFloor + 1);
+    const shaftPos = floor
+        ? floor * floorHeight + elevatorPadding
+        : elevatorPadding;
 
     const onFloorClick = (floorNo: number) => {
         console.log(`You just clicked floor ${floorNo}`);
