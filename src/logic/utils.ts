@@ -47,7 +47,7 @@ export const insertSorted = <T>(
         let middle = Math.floor((left + right) / 2);
         if (getValue(arr[middle]) == getValue(value)) return;
         if (getValue(arr[middle]) > getValue(value)) {
-            right = middle - 1;
+            right = middle;
         } else {
             left = middle + 1;
         }
