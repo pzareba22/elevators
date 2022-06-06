@@ -32,6 +32,7 @@ const Controls: React.FC<Props> = ({ elevatorNum, maxFloor, submitData }) => {
                         min: 0,
                         max: elevatorNum - 1,
                     })}
+                    id="elevatorNo"
                 />
                 <label>Piętro z:</label>
                 <input
@@ -41,6 +42,7 @@ const Controls: React.FC<Props> = ({ elevatorNum, maxFloor, submitData }) => {
                         min: 0,
                         max: maxFloor,
                     })}
+                    id="floorFrom"
                 />
                 <label>Piętro do:</label>
                 <input
@@ -50,6 +52,7 @@ const Controls: React.FC<Props> = ({ elevatorNum, maxFloor, submitData }) => {
                         min: 0,
                         max: maxFloor,
                     })}
+                    id="floorTo"
                 />
                 <input type="submit" value="wyślij zapytanie" />
             </form>
