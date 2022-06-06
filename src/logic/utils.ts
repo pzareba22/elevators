@@ -1,19 +1,3 @@
-// export function findIndex(arr: Array<number>, value: number): number {
-//     let left = 0;
-//     let right = arr.length;
-//     while (left < right) {
-//         let middle = Math.floor((left + right) / 2);
-//         if (arr[middle] == value) {
-//             return middle;
-//         } else if (arr[middle] > value) {
-//             right = middle - 1;
-//         } else {
-//             left = middle + 1;
-//         }
-//     }
-//     return left;
-// }
-
 // Function returning index of given element, or the index BEFORE which the element should be inserted
 export const findIndex = <T>(
     arr: Array<T>,
@@ -35,7 +19,7 @@ export const findIndex = <T>(
     return left;
 };
 
-// Zrobić pure
+// Function inserting a value into a sorted array
 export const insertSorted = <T>(
     arr: Array<T>,
     value: T,
