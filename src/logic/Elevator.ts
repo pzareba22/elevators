@@ -29,7 +29,7 @@ class Elevator {
         const index = findIndex(this.stops, floorFrom, (x) => x.floor_no);
         if (
             index < this.stops.length &&
-            this.stops[index].floor_no == floorFrom &&
+            this.stops[index].floor_no === floorFrom &&
             floorTo !== undefined
         ) {
             insertSorted(this.stops[index].floors_to, floorTo, (x) => x);
@@ -65,7 +65,7 @@ class Elevator {
             (x) => x.floor_no
         );
 
-        if (this.direction == "DOWN") {
+        if (this.direction === "DOWN") {
             if (currentPositionIndex === 0) {
                 this.direction = "UP";
                 newPosition = this.stops[currentPositionIndex + 1];
@@ -73,7 +73,7 @@ class Elevator {
                 newPosition = this.stops[currentPositionIndex - 1];
             }
         } else {
-            if (currentPositionIndex == this.stops.length - 1) {
+            if (currentPositionIndex === this.stops.length - 1) {
                 this.direction = "DOWN";
                 newPosition = this.stops[currentPositionIndex - 1];
             } else {
