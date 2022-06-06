@@ -10,8 +10,8 @@ import SetupDialog from "./components/SetupDialog";
 
 const App: React.FC = () => {
     const [config, setConfig] = useState<SetupData & { setup: boolean }>({
-        elevatorsNo: 5,
-        floorNo: 5,
+        elevatorsNo: 0,
+        floorNo: 0,
         setup: true,
     });
     const [floors, setFloors] = useState(new Array(config.elevatorsNo).fill(0));
