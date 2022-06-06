@@ -37,7 +37,7 @@ const Elevator: React.FC<Props> = ({ floor, maxFloor }) => {
             <div
                 className="shaft"
                 style={{
-                    bottom: `${shaftPos}em`,
+                    bottom: `${shaftPos * 16}px`,
                     height: `${floorHeight}em`,
                 }}
             >
