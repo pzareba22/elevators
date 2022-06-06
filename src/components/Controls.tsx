@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { FormData } from "./types";
+import "../styles/Controls.sass";
 
 type Props = {
     elevatorNum: number;
