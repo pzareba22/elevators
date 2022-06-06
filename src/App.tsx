@@ -33,7 +33,7 @@ const App: React.FC = () => {
             parseInt(data.floorFrom as unknown as string),
             parseInt(data.floorTo as unknown as string)
         );
-        setRequests([...elevatorController.getRequests()]);
+        setRequests(elevatorController.getRequests());
     };
 
     const handleSetupSubmit = (data: SetupData) => {
