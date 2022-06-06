@@ -7,6 +7,8 @@ class ElevatorController {
     private readonly elevators: Array<Elevator>;
     private readonly requests: RequestType[][];
     constructor(elevatorsNumber: number) {
+        console.log(`constructing ${elevatorsNumber} elevators`);
+
         this.elevatorsNumber = elevatorsNumber;
         this.elevators = Array.from(
             { length: elevatorsNumber },
