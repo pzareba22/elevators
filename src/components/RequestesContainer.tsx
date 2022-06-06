@@ -1,6 +1,7 @@
 import React from "react";
 import { RequestType } from "../logic/types";
 import RequestBox from "./RequestBox";
+import "../styles/RequestsContainer.sass";
 
 type Props = {
     requests: RequestType[];
@@ -8,7 +9,8 @@ type Props = {
 
 const RequestesContainer: React.FC<Props> = ({ requests }) => {
     return (
-        <div className="requests">
+        <div className="requestsContainer">
+            <h2>Wezwania</h2>
             {requests.map((request, i) => {
                 return (
                     <RequestBox
