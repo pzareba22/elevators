@@ -12,7 +12,7 @@ const elevatorHeight = 30;
 const Elevator: React.FC<Props> = ({ floor, maxFloor }) => {
     const floorHeight = (elevatorHeight + 2 * elevatorPadding) / (maxFloor + 1);
     const shaftPos = floor
-        ? floor * floorHeight + elevatorPadding
+        ? floor * floorHeight - elevatorPadding
         : elevatorPadding;
 
     const onFloorClick = (floorNo: number) => {
