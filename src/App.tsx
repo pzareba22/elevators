@@ -3,18 +3,21 @@ import Elevator from "./components/Elevator";
 import ElevatorController from "./logic/ElevatorController";
 import "./styles/App.sass";
 import Controls from "./components/Controls";
-import { FormData, SetupData } from "./components/types";
+import { ConfigType, FormData, SetupDataType } from "./components/types";
 import RequestesContainer from "./components/RequestesContainer";
 import { RequestType } from "./logic/types";
 import SetupDialog from "./components/SetupDialog";
+import ElevatorsContainer from "./components/ElevatorsContainer";
 
 const App: React.FC = () => {
-    const [config, setConfig] = useState<SetupData & { setup: boolean }>({
+    const [config, setConfig] = useState<ConfigType>({
         elevatorsNo: 0,
         floorNo: 0,
         setup: true,
     });
-    const [floors, setFloors] = useState(new Array(config.elevatorsNo).fill(0));
+    const [floors, setFloors] = useState<number[]>(
+        new Array(config.elevatorsNo).fill(0)
+    );
     const [requests, setRequests] = useState<RequestType[]>([]);
 
     // Czy te 2 hooki da się jakoś uprościć?
@@ -38,22 +41,15 @@ const App: React.FC = () => {
         setRequests(elevatorController.getRequests());
     };
 
-    const handleSetupSubmit = (data: SetupData) => {
-        console.log(data);
+    const handleSetupSubmit = (data: SetupDataType) => {
+        // console.log(data);
         setConfig({ ...data, setup: false });
     };
 
     return (
         <div className="app">
             {config.setup && <SetupDialog submitData={handleSetupSubmit} />}
-            <div className="elevatorsContainer">
-                {floors.map((floor, i) => (
-                    <div className="elevatorContainer" key={i}>
-                        <h3>{i}</h3>
-                        <Elevator floor={floor} maxFloor={config.floorNo - 1} />
-                    </div>
-                ))}
-            </div>
+            <ElevatorsContainer config={config} floors={floors} />
             <div className="flexContainer">
                 <Controls
                     elevatorNum={config.elevatorsNo}

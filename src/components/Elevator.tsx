@@ -4,12 +4,13 @@ import "../styles/Elevator.sass";
 type Props = {
     floor?: number;
     maxFloor: number;
+    elevatorID: number;
 };
 
 const elevatorPadding = 0.2;
 const elevatorHeight = 30;
 
-const Elevator: React.FC<Props> = ({ floor, maxFloor }) => {
+const Elevator: React.FC<Props> = ({ floor, maxFloor, elevatorID }) => {
     const floorHeight = (elevatorHeight + 2 * elevatorPadding) / (maxFloor + 1);
     const shaftPos = floor
         ? floor * floorHeight - elevatorPadding
@@ -33,16 +34,22 @@ const Elevator: React.FC<Props> = ({ floor, maxFloor }) => {
     });
 
     return (
-        <div className="elevator" style={{ padding: `${elevatorPadding}em` }}>
-            {floors}
+        <div className="elevatorContainer">
+            <h3>{elevatorID}</h3>
             <div
-                className="shaft"
-                style={{
-                    bottom: `${shaftPos * 16}px`,
-                    height: `${floorHeight}em`,
-                }}
+                className="elevator"
+                style={{ padding: `${elevatorPadding}em` }}
             >
-                {floor}
+                {floors}
+                <div
+                    className="shaft"
+                    style={{
+                        bottom: `${shaftPos * 16}px`,
+                        height: `${floorHeight}em`,
+                    }}
+                >
+                    {floor}
+                </div>
             </div>
         </div>
     );
