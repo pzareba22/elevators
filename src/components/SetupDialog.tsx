@@ -1,10 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import "../styles/SetupDialog.sass";
-import { SetupData } from "./types";
+import { SetupDataType } from "./types";
 
 type Props = {
-    submitData: (data: SetupData) => void;
+    submitData: (data: SetupDataType) => void;
 };
 
 const SetupDialog: React.FC<Props> = ({ submitData }) => {
@@ -12,7 +12,7 @@ const SetupDialog: React.FC<Props> = ({ submitData }) => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<SetupData>();
+    } = useForm<SetupDataType>();
     return (
         <div className="setupDialog">
             <form onSubmit={handleSubmit(submitData)}>
