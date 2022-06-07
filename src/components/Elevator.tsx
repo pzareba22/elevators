@@ -9,12 +9,14 @@ type Props = {
 
 const elevatorPadding = 0.2;
 const elevatorHeight = 30;
+const desiredBorderRadius = 2;
 
 const Elevator: React.FC<Props> = ({ floor, maxFloor, elevatorID }) => {
     const floorHeight = (elevatorHeight + 2 * elevatorPadding) / (maxFloor + 1);
     const shaftPos = floor
         ? floor * floorHeight - elevatorPadding
         : elevatorPadding;
+    const borderRadius = Math.min(desiredBorderRadius, floorHeight / 2);
 
     const onFloorClick = (floorNo: number) => {
         console.log(`You just clicked floor ${floorNo}`);
@@ -38,7 +40,10 @@ const Elevator: React.FC<Props> = ({ floor, maxFloor, elevatorID }) => {
             <h3>{elevatorID}</h3>
             <div
                 className="elevator"
-                style={{ padding: `${elevatorPadding}em` }}
+                style={{
+                    padding: `${elevatorPadding}em`,
+                    borderRadius: `${borderRadius}em`,
+                }}
             >
                 {floors}
                 <div
@@ -46,6 +51,7 @@ const Elevator: React.FC<Props> = ({ floor, maxFloor, elevatorID }) => {
                     style={{
                         bottom: `${shaftPos * 16}px`,
                         height: `${floorHeight}em`,
+                        borderRadius: `${borderRadius}em`,
                     }}
                 >
                     {floor}
