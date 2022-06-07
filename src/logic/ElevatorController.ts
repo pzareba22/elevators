@@ -3,7 +3,6 @@ import { RequestType } from "./types";
 
 class ElevatorController {
     readonly elevatorsNumber: number;
-    // Pivate or ES6 private?
     private readonly elevators: Array<Elevator>;
     private readonly requests: RequestType[][];
     constructor(elevatorsNumber: number) {
