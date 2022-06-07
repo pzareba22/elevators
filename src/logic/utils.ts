@@ -1,4 +1,10 @@
-// Function returning index of given element, or the index BEFORE which the element should be inserted
+/**
+ * Function returning index of given element, or the index BEFORE which the element should be inserted
+ * @param arr Array of values
+ * @param value desired number which we are looking for in an array
+ * @param getValue function to get value from an array element
+ * @returns existing or expected index of given value
+ */
 export const findIndex = <T>(
     arr: Array<T>,
     value: number,
@@ -19,7 +25,12 @@ export const findIndex = <T>(
     return left;
 };
 
-// Function inserting a value into a sorted array
+/**
+ * Function that insert a value into an array
+ * @param arr array to insert into
+ * @param value value to insert
+ * @param getValue function to get number value from an array element
+ */
 export const insertSorted = <T>(
     arr: Array<T>,
     value: T,
@@ -37,5 +48,4 @@ export const insertSorted = <T>(
         }
     }
     arr.splice(left, 0, value);
-    return arr;
 };
