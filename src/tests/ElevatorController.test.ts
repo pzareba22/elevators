@@ -3,7 +3,7 @@ import ElevatorController from "../logic/ElevatorController";
 describe("ElevatorController tests", () => {
     test("Move an elevator one floor up", () => {
         // given
-        let elevatorController = new ElevatorController(1);
+        let elevatorController = new ElevatorController(1, 5);
 
         // when
         elevatorController.addElevatorStop(0, 0, 2);
@@ -15,7 +15,7 @@ describe("ElevatorController tests", () => {
 
     test("Move five elevators at the same time", () => {
         // given
-        let elevatorController = new ElevatorController(5);
+        let elevatorController = new ElevatorController(5, 5);
 
         // when
         for (let i = 0; i < 5; i++) {
@@ -30,7 +30,7 @@ describe("ElevatorController tests", () => {
     });
 
     test("Move an elevator several times", () => {
-        let elevatorController = new ElevatorController(1);
+        let elevatorController = new ElevatorController(1, 5);
 
         elevatorController.addElevatorStop(0, 1, 2);
         elevatorController.update();
