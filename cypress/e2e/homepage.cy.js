@@ -1,7 +1,7 @@
 const elevatorPadding = 0.2;
 const calculateBottom = (floor, maxFloor) => {
     const floorHeight = (30 + 2 * elevatorPadding) / (maxFloor + 1);
-    const res = (floor * floorHeight + elevatorPadding) * 16;
+    const res = (floor * floorHeight - elevatorPadding) * 16;
     return parseInt(res);
 };
 
@@ -103,5 +103,28 @@ describe("Check if the elevators move correctly", () => {
                 const bottom = parseInt($div.css("bottom"));
                 expect(bottom).to.equal(calculateBottom(1, 5));
             });
+    });
+});
+
+describe("Check if wrong inputs have correct styles", () => {
+    beforeEach(() => {
+        cy.visit("/");
+    });
+    it("Tries to input negative number of elevaors", () => {
+        cy.get("#elevatorsNoInput").type("-3");
+        cy.get(".setupDialog form").submit();
+
+        cy.get("#elevatorsNoInput")
+            .should("have.class", "wrongInput")
+            .should("have.css", "border", "3px solid rgb(255, 0, 0)");
+    });
+
+    it("Tries to input negative number of floors", () => {
+        cy.get("#floorNoInput").type("-3");
+        cy.get(".setupDialog form").submit();
+
+        cy.get("#floorNoInput")
+            .should("have.class", "wrongInput")
+            .should("have.css", "border", "3px solid rgb(255, 0, 0)");
     });
 });
