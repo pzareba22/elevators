@@ -1,5 +1,3 @@
-import { getValue } from "@testing-library/user-event/dist/utils";
-import { FloorEntry } from "../logic/types";
 import { findIndex, insertSorted } from "../logic/utils";
 
 describe("findIndex tests", () => {
