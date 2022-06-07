@@ -25,7 +25,7 @@ const Controls: React.FC<Props> = ({ elevatorNum, maxFloor, submitData }) => {
     return (
         <div className="elevatorControls">
             <form onSubmit={handleSubmit(submitData)}>
-                <label>id Windy:</label>
+                <label>ID Windy:</label>
                 <input
                     type="number"
                     {...register("elevatorNo", {
