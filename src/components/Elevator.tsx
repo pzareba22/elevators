@@ -7,9 +7,10 @@ type Props = {
 };
 
 const elevatorPadding = 0.2;
+const elevatorHeight = 30;
 
 const Elevator: React.FC<Props> = ({ floor, maxFloor }) => {
-    const floorHeight = (30 + 2 * elevatorPadding) / (maxFloor + 1);
+    const floorHeight = (elevatorHeight + 2 * elevatorPadding) / (maxFloor + 1);
     const shaftPos = floor
         ? floor * floorHeight + elevatorPadding
         : elevatorPadding;
