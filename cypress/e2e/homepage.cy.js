@@ -62,15 +62,9 @@ describe("Check if the elevators move correctly", () => {
         cy.get(".elevatorControls > form").submit();
 
         cy.get(".submitButton").click();
-        // cy.get(".shaft")
-        //     .eq(0)
-        //     .should("have.text", "2")
-        //     .should("have.css", "bottom", `${calculateBottom(2, 5)}px`);
-
         cy.get(".submitButton").click();
         cy.get(".shaft")
             .eq(0)
-            // .should("have.text", "1")
             .should(($div) => {
                 expect($div).to.have.text("1");
                 const bottom = parseInt($div.css("bottom"));
@@ -91,6 +85,23 @@ describe("Check if the elevators move correctly", () => {
 
         cy.get(".submitButton").click();
         cy.get(".shaft").eq(3).should("have.text", "4");
+
+        cy.get(".shaft")
+            .eq(3)
+            .should(($div) => {
+                expect($div).to.have.text("4");
+                const bottom = parseInt($div.css("bottom"));
+                expect(bottom).to.equal(calculateBottom(4, 5));
+            });
+
         cy.get(".shaft").eq(2).should("have.text", "1");
+
+        cy.get(".shaft")
+            .eq(2)
+            .should(($div) => {
+                expect($div).to.have.text("1");
+                const bottom = parseInt($div.css("bottom"));
+                expect(bottom).to.equal(calculateBottom(1, 5));
+            });
     });
 });
