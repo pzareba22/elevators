@@ -4,14 +4,9 @@
   "private": true,
   "homepage": "https://pzareba22.github.io/elevators/",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.11.38",
     "@types/react": "^18.0.10",
     "@types/react-dom": "^18.0.5",
-    "cypress": "^10.0.2",
     "immutable": "^4.1.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -51,6 +46,11 @@
   },
   "devDependencies": {
     "gh-pages": "^4.0.0",
-    "jest": "^28.1.0"
+    "jest": "^28.1.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "cypress": "^10.0.2"
   }
 }
