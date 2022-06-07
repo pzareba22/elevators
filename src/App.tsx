@@ -16,9 +16,11 @@ const App: React.FC = () => {
     });
     const [floors, setFloors] = useState(new Array(config.elevatorsNo).fill(0));
     const [requests, setRequests] = useState<RequestType[]>([]);
+
+    // Czy te 2 hooki da się jakoś uprościć?
     const elevatorController = useMemo(
-        () => new ElevatorController(config.elevatorsNo),
-        [config.elevatorsNo]
+        () => new ElevatorController(config.elevatorsNo, config.floorNo - 1),
+        [config]
     );
 
     useEffect(() => {
@@ -52,21 +54,23 @@ const App: React.FC = () => {
                     </div>
                 ))}
             </div>
-            <Controls
-                elevatorNum={config.elevatorsNo}
-                maxFloor={config.floorNo - 1}
-                submitData={handleFormSubmit}
-            />
-            <button
-                className="submitButton"
-                onClick={() => {
-                    elevatorController.update();
-                    setFloors(elevatorController.getElevatorPositions());
-                    setRequests([...elevatorController.getRequests()]);
-                }}
-            >
-                Zmień
-            </button>
+            <div className="flexContainer">
+                <Controls
+                    elevatorNum={config.elevatorsNo}
+                    maxFloor={config.floorNo - 1}
+                    submitData={handleFormSubmit}
+                />
+                <button
+                    className="submitButton"
+                    onClick={() => {
+                        elevatorController.update();
+                        setFloors(elevatorController.getElevatorPositions());
+                        setRequests([...elevatorController.getRequests()]);
+                    }}
+                >
+                    Zaktualizuj stan
+                </button>
+            </div>
             <RequestesContainer requests={requests} />
         </div>
     );
