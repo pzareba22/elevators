@@ -19,6 +19,7 @@ class ElevatorController {
      * @param elevatorID ID of the desired elevator
      * @param floorFrom Number representing floor from which the elevator has to move
      * @param floorTo Number representing floor to which the elevator has to move
+     * @throws Throws an error if given an incorrect elevatorID
      */
     addElevatorStop(elevatorID: number, floorFrom: number, floorTo: number) {
         if (elevatorID < 0 || elevatorID >= this.elevatorsNumber) {
