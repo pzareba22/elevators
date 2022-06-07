@@ -14,7 +14,7 @@ export const findIndex = <T>(
     let right = arr.length;
     while (left < right) {
         let middle = Math.floor((left + right) / 2);
-        if (getValue(arr[middle]) == value) {
+        if (getValue(arr[middle]) === value) {
             return middle;
         } else if (getValue(arr[middle]) > value) {
             right = middle;
@@ -40,7 +40,7 @@ export const insertSorted = <T>(
     let right = arr.length;
     while (left < right) {
         let middle = Math.floor((left + right) / 2);
-        if (getValue(arr[middle]) == getValue(value)) return;
+        if (getValue(arr[middle]) === getValue(value)) return;
         if (getValue(arr[middle]) > getValue(value)) {
             right = middle;
         } else {
