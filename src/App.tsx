@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import Elevator from "./components/Elevator";
 import ElevatorController from "./logic/ElevatorController";
 import "./styles/App.sass";
 import Controls from "./components/Controls";
