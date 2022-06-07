@@ -21,12 +21,14 @@ const SetupDialog: React.FC<Props> = ({ submitData }) => {
                     type="number"
                     {...register("elevatorsNo", { required: true, min: 0 })}
                     id="elevatorsNoInput"
+                    className={errors.elevatorsNo && "wrongInput"}
                 />
-                <label>Liczba pieter w windzie</label>
+                <label>Liczba pięter w każdej windzie</label>
                 <input
                     type="number"
                     {...register("floorNo", { required: true, min: 0 })}
                     id="floorNoInput"
+                    className={errors.floorNo && "wrongInput"}
                 />
                 <input type="submit" value="OK" />
             </form>

@@ -24,7 +24,12 @@ const Controls: React.FC<Props> = ({ elevatorNum, maxFloor, submitData }) => {
 
     return (
         <div className="elevatorControls">
-            <form onSubmit={handleSubmit(submitData)}>
+            <form
+                onSubmit={handleSubmit((data, e) => {
+                    e?.target.reset();
+                    submitData(data);
+                })}
+            >
                 <label>ID Windy:</label>
                 <input
                     type="number"
@@ -34,6 +39,7 @@ const Controls: React.FC<Props> = ({ elevatorNum, maxFloor, submitData }) => {
                         max: elevatorNum - 1,
                     })}
                     id="elevatorNo"
+                    className={errors.elevatorNo && "wrongInput"}
                 />
                 <label>Piętro z:</label>
                 <input
@@ -44,6 +50,7 @@ const Controls: React.FC<Props> = ({ elevatorNum, maxFloor, submitData }) => {
                         max: maxFloor,
                     })}
                     id="floorFrom"
+                    className={errors.floorFrom && "wrongInput"}
                 />
                 <label>Piętro do:</label>
                 <input
@@ -54,6 +61,7 @@ const Controls: React.FC<Props> = ({ elevatorNum, maxFloor, submitData }) => {
                         max: maxFloor,
                     })}
                     id="floorTo"
+                    className={errors.floorTo && "wrongInput"}
                 />
                 <input type="submit" value="wyślij zapytanie" />
             </form>
