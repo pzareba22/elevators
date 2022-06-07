@@ -18,16 +18,11 @@ const Elevator: React.FC<Props> = ({ floor, maxFloor, elevatorID }) => {
         : elevatorPadding;
     const borderRadius = Math.min(desiredBorderRadius, floorHeight / 2);
 
-    const onFloorClick = (floorNo: number) => {
-        console.log(`You just clicked floor ${floorNo}`);
-    };
-
     const floors = Array.from({ length: maxFloor + 1 }, (_, i) => {
         return (
             <div
                 className="floor"
                 style={{ height: `${floorHeight}em` }}
-                onClick={() => onFloorClick(maxFloor - i)}
                 key={i}
             >
                 {maxFloor - i}
