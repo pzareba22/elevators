@@ -1,17 +1,18 @@
 import Elevator from "./Elevator";
 import { RequestType } from "./types";
+import { Set, Map } from "immutable";
 
 class ElevatorController {
     readonly elevatorsNumber: number;
     private readonly elevators: Array<Elevator>;
-    private readonly requests: RequestType[][];
+    private readonly requests: Set<Map<String, number>>[];
     constructor(elevatorsNumber: number, maxFloor: number) {
         this.elevatorsNumber = elevatorsNumber;
         this.elevators = Array.from(
             { length: elevatorsNumber },
             () => new Elevator(maxFloor)
         );
-        this.requests = Array.from({ length: elevatorsNumber }, () => []);
+        this.requests = Array.from({ length: elevatorsNumber }, () => Set());
     }
 
     /**
@@ -25,11 +26,12 @@ class ElevatorController {
         if (elevatorID < 0 || elevatorID >= this.elevatorsNumber) {
             throw new Error("Invalid elevatorID: " + elevatorID.toString());
         }
-        this.elevators[elevatorID].addStop(floorFrom, floorTo);
-        this.requests[elevatorID].push({
+        const newRequest = Map({
             floorFrom: floorFrom,
             floorTo: floorTo,
         });
+        this.elevators[elevatorID].addStop(floorFrom, floorTo);
+        this.requests[elevatorID] = this.requests[elevatorID].add(newRequest);
     }
 
     /**
@@ -44,7 +46,9 @@ class ElevatorController {
      * @returns An array of all currently loaded requests
      */
     getRequests() {
-        return this.requests.flat();
+        return this.requests.flatMap((set) =>
+            Array.from(set).map((x) => x.toObject() as RequestType)
+        );
     }
 
     /**
@@ -53,12 +57,25 @@ class ElevatorController {
     update() {
         for (let i = 0; i < this.elevators.length; i++) {
             this.elevators[i].move();
-            for (let j = 0; j < this.requests[i].length; j++) {
-                if (
-                    this.requests[i][j].floorTo === this.elevators[i].getFloor()
-                ) {
-                    this.requests[i].splice(j, 1);
-                    break;
+
+            // Deleting requests that were just completed
+
+            // Getting an array of all requests for ith elevator
+            const localRequests = Array.from(this.requests[i]).map((x) =>
+                x.toObject()
+            );
+
+            for (let j = 0; j < localRequests.length; j++) {
+                const request = localRequests[j];
+                // Checking if we just arrived at a desired floor
+                if (request.floorTo == this.elevators[i].getFloor()) {
+                    // Deleting floor from Set
+                    this.requests[i] = this.requests[i].delete(
+                        Map({
+                            floorFrom: request.floorFrom,
+                            floorTo: request.floorTo,
+                        })
+                    );
                 }
             }
         }
