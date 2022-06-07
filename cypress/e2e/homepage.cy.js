@@ -106,7 +106,7 @@ describe("Check if the elevators move correctly", () => {
     });
 });
 
-describe("Check if wrong inputs have correct styles", () => {
+describe("Check if wrong inputs behave correctly", () => {
     beforeEach(() => {
         cy.visit("/");
     });
@@ -126,5 +126,6 @@ describe("Check if wrong inputs have correct styles", () => {
         cy.get("#floorNoInput")
             .should("have.class", "wrongInput")
             .should("have.css", "border", "3px solid rgb(255, 0, 0)");
+        cy.get(".requestBox").should("not.exist");
     });
 });
