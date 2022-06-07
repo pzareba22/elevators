@@ -17,7 +17,7 @@ const App: React.FC = () => {
     const [floors, setFloors] = useState<number[]>(
         new Array(config.elevatorsNo).fill(0)
     );
-    const [requests, setRequests] = useState<RequestType[]>([]);
+    const [requests, setRequests] = useState<RequestType[][]>([]);
 
     // Czy te 2 hooki da się jakoś uprościć?
     const elevatorController = useMemo(
@@ -41,7 +41,6 @@ const App: React.FC = () => {
     };
 
     const handleSetupSubmit = (data: SetupDataType) => {
-        // console.log(data);
         setConfig({ ...data, setup: false });
     };
 

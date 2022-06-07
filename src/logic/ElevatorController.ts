@@ -46,9 +46,10 @@ class ElevatorController {
      * @returns An array of all currently loaded requests
      */
     getRequests() {
-        return this.requests.flatMap((set) =>
+        return this.requests.map((set) =>
             Array.from(set).map((x) => x.toObject() as RequestType)
         );
+        // return this.requests.map()
     }
 
     /**
@@ -68,7 +69,7 @@ class ElevatorController {
             for (let j = 0; j < localRequests.length; j++) {
                 const request = localRequests[j];
                 // Checking if we just arrived at a desired floor
-                if (request.floorTo == this.elevators[i].getFloor()) {
+                if (request.floorTo === this.elevators[i].getFloor()) {
                     // Deleting floor from Set
                     this.requests[i] = this.requests[i].delete(
                         Map({
