@@ -25,13 +25,12 @@ describe("Check if the page renders correctly", () => {
     });
 });
 
-describe("Checks if requests appear correctly", () => {
+describe("Check if requests appear correctly", () => {
     beforeEach(() => {
         cy.visit("/");
         cy.get("#elevatorsNoInput").type("5");
         cy.get("#floorNoInput").type("6");
         cy.get(".setupDialog > form").submit();
-        cy.get(".elevatorContainer").should("have.length", 5);
     });
 
     it("Creates one request", () => {
@@ -40,11 +39,46 @@ describe("Checks if requests appear correctly", () => {
         cy.get("#floorTo").type("3");
         cy.get(".elevatorControls > form").submit();
 
-        cy.get(".requestBox > p").eq(0).should("have.text", "0");
+        cy.get(".requestBox > p").eq(0).should("have.text", "1");
         cy.get(".requestBox > p").eq(1).should("have.text", "From: 5");
         cy.get(".requestBox > p").eq(2).should("have.text", "To: 3");
     });
+
+    it("Creates three requests", () => {
+        cy.get("#elevatorNo").type("1");
+        cy.get("#floorFrom").type("5");
+        cy.get("#floorTo").type("3");
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get("#elevatorNo").clear().type("2");
+        cy.get("#floorFrom").clear().type("2");
+        cy.get("#floorTo").clear().type("1");
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get("#elevatorNo").clear().type("0");
+        cy.get("#floorFrom").clear().type("1");
+        cy.get("#floorTo").clear().type("3");
+        // cy.screenshot()
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get(".requestBox").should("have.length", 3)
+    })
 });
+
+describe("Checks if requests disappear correctly", () => {
+    beforeEach(() => {
+        cy.visit("/");
+        cy.get("#elevatorsNoInput").type("5");
+        cy.get("#floorNoInput").type("6");
+        cy.get(".setupDialog > form").submit();
+        cy.get(".elevatorContainer").should("have.length", 5);
+    });
+
+
+
+
+})
+
 
 describe("Check if the elevators move correctly", () => {
     beforeEach(() => {
