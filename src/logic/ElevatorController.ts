@@ -5,11 +5,11 @@ class ElevatorController {
     readonly elevatorsNumber: number;
     private readonly elevators: Array<Elevator>;
     private readonly requests: RequestType[][];
-    constructor(elevatorsNumber: number) {
+    constructor(elevatorsNumber: number, maxFloor: number) {
         this.elevatorsNumber = elevatorsNumber;
         this.elevators = Array.from(
             { length: elevatorsNumber },
-            () => new Elevator()
+            () => new Elevator(maxFloor)
         );
         this.requests = Array.from({ length: elevatorsNumber }, () => []);
     }

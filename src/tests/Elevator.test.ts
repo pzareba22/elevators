@@ -2,7 +2,7 @@ import Elevator from "../logic/Elevator";
 
 describe("Elevator tests", () => {
     test("Go up one floor", () => {
-        const elevator = new Elevator();
+        const elevator = new Elevator(5);
         elevator.addStop(0, 1);
         elevator.move();
         const res = elevator.getFloor();
@@ -10,7 +10,7 @@ describe("Elevator tests", () => {
     });
 
     test("Go to the correct floor first", () => {
-        const elevator = new Elevator();
+        const elevator = new Elevator(5);
         elevator.addStop(2, 1);
         elevator.move();
         const res = elevator.getFloor();
@@ -18,7 +18,7 @@ describe("Elevator tests", () => {
     });
 
     test("Go up and down one floor", () => {
-        const elevator = new Elevator();
+        const elevator = new Elevator(5);
         elevator.addStop(0, 1);
         elevator.move();
         let res = elevator.getFloor();
@@ -30,7 +30,7 @@ describe("Elevator tests", () => {
     });
 
     test("Multiple floor requests", () => {
-        const elevator = new Elevator();
+        const elevator = new Elevator(5);
         elevator.addStop(2, 4);
         elevator.addStop(5, 1);
         elevator.move();
@@ -42,7 +42,7 @@ describe("Elevator tests", () => {
     });
 
     test("Multiple floor requests 2", () => {
-        const elevator = new Elevator();
+        const elevator = new Elevator(5);
 
         elevator.addStop(2, 1);
         elevator.addStop(3, 1);
@@ -58,12 +58,26 @@ describe("Elevator tests", () => {
     });
 
     test("Adding a single stop", () => {
-        const elevator = new Elevator();
+        const elevator = new Elevator(5);
         elevator.addStop(2);
         elevator.move();
 
         let res = elevator.getFloor();
 
         expect(res).toEqual(2);
+    });
+
+    test("Going from below floor 0", () => {
+        const elevator = new Elevator(5);
+        expect(() => elevator.addStop(-2, 3)).toThrowError(
+            new Error("Elevator can't go below 0")
+        );
+    });
+
+    test("Going above max floor", () => {
+        const elevator = new Elevator(5);
+        expect(() => elevator.addStop(0, 6)).toThrowError(
+            new Error("Elevator can't go above 5")
+        );
     });
 });

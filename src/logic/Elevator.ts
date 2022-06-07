@@ -5,10 +5,12 @@ class Elevator {
     private floor: number;
     stops: Array<FloorEntry>;
     private direction: DirectionType;
-    constructor() {
+    private readonly maxFloor;
+    constructor(maxFloor: number) {
         this.floor = 0;
         this.stops = [{ floor_no: 0, floors_to: [] }];
         this.direction = "UP";
+        this.maxFloor = maxFloor;
     }
 
     setFloor(floor: number) {
@@ -20,6 +22,10 @@ class Elevator {
     }
 
     addStop(floorFrom: number, floorTo?: number) {
+        if (floorFrom < 0 || floorFrom < 0)
+            throw new Error("Elevator can't go below 0");
+        if (floorFrom > this.maxFloor || (floorTo && floorTo > this.maxFloor))
+            throw new Error(`Elevator can't go above ${this.maxFloor}`);
         if (floorFrom === floorTo) return;
         let newEntry: FloorEntry = {
             floor_no: floorFrom,
