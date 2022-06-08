@@ -98,7 +98,7 @@ class Elevator {
         );
 
         if (this.direction === "DOWN") {
-            // If there are no floors below the current one, whe change directions
+            // If there are no floors below the current one, the elevator changes directions
             if (currentPositionIndex === 0) {
                 this.direction = "UP";
                 newPosition = this.stops[currentPositionIndex + 1];
