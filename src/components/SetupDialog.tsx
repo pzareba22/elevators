@@ -19,14 +19,22 @@ const SetupDialog: React.FC<Props> = ({ submitData }) => {
                 <label>Liczba wind:</label>
                 <input
                     type="number"
-                    {...register("elevatorsNo", { required: true, min: 0 })}
+                    {...register("elevatorsNo", {
+                        required: true,
+                        min: 1,
+                        max: 64,
+                    })}
                     id="elevatorsNoInput"
                     className={errors.elevatorsNo && "wrongInput"}
                 />
                 <label>Liczba pięter w każdej windzie</label>
                 <input
                     type="number"
-                    {...register("floorNo", { required: true, min: 0 })}
+                    {...register("floorNo", {
+                        required: true,
+                        min: 2,
+                        max: 32,
+                    })}
                     id="floorNoInput"
                     className={errors.floorNo && "wrongInput"}
                 />
