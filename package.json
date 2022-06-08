@@ -20,7 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "cypress": "npx cypress run --headed",
+    "cypress": "npx cypress run",
     "cypress-open": "npx cypress open",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
