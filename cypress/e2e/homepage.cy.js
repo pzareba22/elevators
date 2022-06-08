@@ -58,7 +58,6 @@ describe("Check if requests appear correctly", () => {
         cy.get("#elevatorNo").clear().type("0");
         cy.get("#floorFrom").clear().type("1");
         cy.get("#floorTo").clear().type("3");
-        // cy.screenshot()
         cy.get(".elevatorControls > form").submit();
 
         cy.get(".requestBox").should("have.length", 3);
