@@ -8,7 +8,7 @@ class Elevator {
     private readonly maxFloor;
     constructor(maxFloor: number, startFloor = 0) {
         this.floor = startFloor;
-        this.stops = [{ floor_no: startFloor, floors_to: [] }];
+        this.stops = [{ floorNo: startFloor, floors_to: [] }];
         this.direction = "UP";
         this.maxFloor = maxFloor;
     }
@@ -42,16 +42,16 @@ class Elevator {
         if (floorFrom === floorTo) return;
 
         let newEntry: FloorEntry = {
-            floor_no: floorFrom,
+            floorNo: floorFrom,
             floors_to: floorTo !== undefined ? [floorTo] : [],
         };
 
         // Find where the new entry should be in this.stops array
-        const index = findIndex(this.stops, floorFrom, (x) => x.floor_no);
+        const index = findIndex(this.stops, floorFrom, (x) => x.floorNo);
         // If we already have an entry about this floor, we simply add floorTo to its destinations
         if (
             index < this.stops.length &&
-            this.stops[index].floor_no === floorFrom &&
+            this.stops[index].floorNo === floorFrom &&
             floorTo !== undefined
         ) {
             insertSorted(this.stops[index].floors_to, floorTo, (x) => x);
@@ -71,7 +71,7 @@ class Elevator {
         let currentPositionIndex = findIndex(
             this.stops,
             this.floor,
-            (x) => x.floor_no
+            (x) => x.floorNo
         );
 
         // If we only have one floor in this.stops array, and
@@ -94,7 +94,7 @@ class Elevator {
         currentPositionIndex = findIndex(
             this.stops,
             this.floor,
-            (x) => x.floor_no
+            (x) => x.floorNo
         );
 
         if (this.direction === "DOWN") {
@@ -114,7 +114,7 @@ class Elevator {
                 newPosition = this.stops[currentPositionIndex + 1];
             }
         }
-        this.floor = newPosition.floor_no;
+        this.floor = newPosition.floorNo;
         // We get rid of our old floor entry
         this.stops.splice(currentPositionIndex, 1);
     }

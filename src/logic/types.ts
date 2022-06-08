@@ -4,7 +4,7 @@ export type RequestType = {
 };
 
 export type FloorEntry = {
-    floor_no: number;
+    floorNo: number;
     floors_to: Array<number>;
 };
 
