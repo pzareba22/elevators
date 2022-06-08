@@ -39,6 +39,9 @@ The ElevatorController class allows for the following:
 
 ## How to run the code
 
+The app is hosted on [GitHub Pages](https://pzareba22.github.io/elevators/)
+
+If You want to run the code locally, You need to install dependencies via `yarn install` or `npm install`
 There are several commands availiable:
 
 -   `npm start` - starts the app locally (by default on port 3000)
