@@ -14,7 +14,6 @@ class Elevator {
     }
 
     /**
-     *
      * @returns A number representing the floor, that the elevator is currently on
      */
     getFloor() {
@@ -22,7 +21,6 @@ class Elevator {
     }
 
     /**
-     *
      * @returns DirectionType representing elevators current direction
      */
     getDirection() {
