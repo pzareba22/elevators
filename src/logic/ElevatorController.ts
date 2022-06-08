@@ -48,7 +48,6 @@ class ElevatorController {
         return this.requests.map((set) =>
             Array.from(set).map((x) => x.toObject() as RequestType)
         );
-        // return this.requests.map()
     }
 
     /**
