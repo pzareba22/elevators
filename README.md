@@ -14,7 +14,7 @@ Each elevator (implemented in the Elevator.ts file) holds its own state, which c
 
 The array of floors is kept in a sorted order, which allows search and insert operations in O(log(n)) time complexity. Searching and inserting are implementations of a classical binary search algorithm.
 
-The elevator moves in a greedy manner - it will keep going in the same direction, until there are no more stops to make in said direction. Then either the direction changes or the elevator waits for more requests.
+An elevator moves in a greedy manner - it will keep going in the same direction, until there are no more stops to make in said direction. Then either the direction changes or the elevator waits for more requests.
 
 ## ElevatorController logic
 
