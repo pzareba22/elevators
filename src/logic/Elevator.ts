@@ -57,7 +57,7 @@ class Elevator {
             insertSorted(this.stops[index].floors_to, floorTo, (x) => x);
             return;
         }
-        // Otherwise, just add the netire new entry
+        // Otherwise, just add the entire new entry
         this.stops.splice(index, 0, newEntry);
     }
 
