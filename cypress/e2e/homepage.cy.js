@@ -75,6 +75,43 @@ describe("Checks if requests disappear correctly", () => {
     });
 
 
+    it("Checks if one request disappears", () => {
+        cy.get("#elevatorNo").type("1");
+        cy.get("#floorFrom").type("0");
+        cy.get("#floorTo").type("3");
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get(".submitButton").click();
+
+        cy.get(".requestBox").should("not.exist")
+    })
+
+    it("Checks if multiple requests disappear", () => {
+        cy.get("#elevatorNo").type("0");
+        cy.get("#floorFrom").type("4");
+        cy.get("#floorTo").type("3");
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get("#elevatorNo").clear().type("1");
+        cy.get("#floorFrom").clear().type("1");
+        cy.get("#floorTo").clear().type("2");
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get("#elevatorNo").clear().type("3");
+        cy.get("#floorFrom").clear().type("0");
+        cy.get("#floorTo").clear().type("4");
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get(".submitButton").click();
+
+        cy.get(".requestBox").should("have.length", 2)
+
+        cy.get(".submitButton").click();
+
+        cy.get(".requestBox").should("not.exist")
+
+        
+    })
 
 
 })
