@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+# Elevator system simulation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## General information
 
-## Available Scripts
+This is a project which simulates behaviour of an elevator system. At the beginning, the user is prompted to enther the desired number of elevators and numbers of floor per elevator. Then the user can interact with said elevators by sending requests to chosen elevators and giving them instructions in the form of (floorFrom, floorTo). The user can also click a button which prompts every elevator to move by one floor (if that elevator needs to move at all).
 
-In the project directory, you can run:
+## Elevator logic
 
-### `npm start`
+Each elevator (implemented in the Elevator.ts file) holds its own state, which consists of:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-   current floor
+-   an array of floors and destinations to reach from each floor
+-   current direction
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The array of floors is kept in a sorted order, which allows search and insert operations in O(log(n)) time complexity. Searching and inserting are implementations of a classical binary search algorithm.
 
-### `npm test`
+The elevator moves in a greedy manner - it will keep going in the same direction, until there are no more stops to make in said direction. Then either the direction changes or the elevator waits for more requests.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ElevatorController logic
 
-### `npm run build`
+I've also implemented an ElevatorController class (implemented in ElevatorController.ts), which is responsible for handling multiple elevators at once. It is also responsible for keeping track of existing requests made to elevators and making sure that, they are unique, for convenience sake. Uniqueness is achieved by keeping existing requests in an array of sets (since JS/TS doesn't deal well with keeping objects in a set I've resorted to using Immutable.js library for it's implementation of sets and maps).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The ElevatorController class allows for the following:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-   making a request to a particular elevator
+-   getting an array of current elevator positions
+-   getting an array of current requests
+-   making each elevator move one floor
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Used technologies
 
-### `npm run eject`
+-   React.js - Framework on which the entire application is based
+-   Typescript - Allows for static typing
+-   React Hook Form - Provides an elegant API for working with forms
+-   Immutable.js - Provides a clean, trie-based implementations of maps and sets
+-   Sass - CSS extension language
+-   Jest - Testing 'pure' typescript code
+-   Cypress - End to end testing
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## How to run the code
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+There are several commands availiable:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+-   `npm start` - starts the app locally (by default on port 3000)
+-   `npm run test` - performs Jest testing (components responsible for the 'buisness' logic)
+-   `npm run cypress` - performs cypress e2e testing (without GUI)
+-   `npm run cypress-open` - opens the Cypress GUI and preforms tests
