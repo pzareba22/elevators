@@ -19,7 +19,6 @@ const App: React.FC = () => {
     );
     const [requests, setRequests] = useState<RequestType[][]>([]);
 
-    // Czy te 2 hooki da się jakoś uprościć?
     const elevatorController = useMemo(
         () => new ElevatorController(config.elevatorsNo, config.floorNo - 1),
         [config]
