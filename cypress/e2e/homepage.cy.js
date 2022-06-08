@@ -61,8 +61,8 @@ describe("Check if requests appear correctly", () => {
         // cy.screenshot()
         cy.get(".elevatorControls > form").submit();
 
-        cy.get(".requestBox").should("have.length", 3)
-    })
+        cy.get(".requestBox").should("have.length", 3);
+    });
 });
 
 describe("Checks if requests disappear correctly", () => {
@@ -74,7 +74,6 @@ describe("Checks if requests disappear correctly", () => {
         cy.get(".elevatorContainer").should("have.length", 5);
     });
 
-
     it("Checks if one request disappears", () => {
         cy.get("#elevatorNo").type("1");
         cy.get("#floorFrom").type("0");
@@ -83,8 +82,8 @@ describe("Checks if requests disappear correctly", () => {
 
         cy.get(".submitButton").click();
 
-        cy.get(".requestBox").should("not.exist")
-    })
+        cy.get(".requestBox").should("not.exist");
+    });
 
     it("Checks if multiple requests disappear", () => {
         cy.get("#elevatorNo").type("0");
@@ -104,18 +103,13 @@ describe("Checks if requests disappear correctly", () => {
 
         cy.get(".submitButton").click();
 
-        cy.get(".requestBox").should("have.length", 2)
+        cy.get(".requestBox").should("have.length", 2);
 
         cy.get(".submitButton").click();
 
-        cy.get(".requestBox").should("not.exist")
-
-        
-    })
-
-
-})
-
+        cy.get(".requestBox").should("not.exist");
+    });
+});
 
 describe("Check if the elevators move correctly", () => {
     beforeEach(() => {
@@ -177,7 +171,7 @@ describe("Check if the elevators move correctly", () => {
     });
 });
 
-describe("Check if wrong inputs behave correctly", () => {
+describe("Check if wrong setup inputs behave correctly", () => {
     beforeEach(() => {
         cy.visit("/");
     });
@@ -198,5 +192,86 @@ describe("Check if wrong inputs behave correctly", () => {
             .should("have.class", "wrongInput")
             .should("have.css", "border", "3px solid rgb(255, 0, 0)");
         cy.get(".requestBox").should("not.exist");
+    });
+});
+
+describe("Check if wrong request inputs behave correctly", () => {
+    beforeEach(() => {
+        cy.visit("/");
+        cy.get("#elevatorsNoInput").type("5");
+        cy.get("#floorNoInput").type("6");
+        cy.get(".setupDialog > form").submit();
+        cy.get(".elevatorContainer").should("have.length", 5);
+    });
+
+    it("Tries to input negative elevator ID", () => {
+        cy.get("#elevatorNo").type("-1");
+        cy.get("#floorFrom").type("0");
+        cy.get("#floorTo").type("4");
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get(".requestBox").should("not.exist");
+        cy.get("#elevatorNo")
+            .should("have.class", "wrongInput")
+            .should("have.css", "border", "3px solid rgb(255, 0, 0)");
+    });
+
+    it("Tries to input negative source floor", () => {
+        cy.get("#elevatorNo").type("0");
+        cy.get("#floorFrom").type("-1");
+        cy.get("#floorTo").type("2");
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get(".requestBox").should("not.exist");
+        cy.get("#floorFrom")
+            .should("have.class", "wrongInput")
+            .should("have.css", "border", "3px solid rgb(255, 0, 0)");
+    });
+
+    it("Tries to input negative destination floor", () => {
+        cy.get("#elevatorNo").type("0");
+        cy.get("#floorFrom").type("2");
+        cy.get("#floorTo").type("-2");
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get(".requestBox").should("not.exist");
+        cy.get("#floorTo")
+            .should("have.class", "wrongInput")
+            .should("have.css", "border", "3px solid rgb(255, 0, 0)");
+    });
+    it("Tries to input too big elevator ID", () => {
+        cy.get("#elevatorNo").type("40");
+        cy.get("#floorFrom").type("1");
+        cy.get("#floorTo").type("2");
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get(".requestBox").should("not.exist");
+        cy.get("#elevatorNo")
+            .should("have.class", "wrongInput")
+            .should("have.css", "border", "3px solid rgb(255, 0, 0)");
+    });
+
+    it("Tries to input too big source floor", () => {
+        cy.get("#elevatorNo").type("0");
+        cy.get("#floorFrom").type("15");
+        cy.get("#floorTo").type("2");
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get(".requestBox").should("not.exist");
+        cy.get("#floorFrom")
+            .should("have.class", "wrongInput")
+            .should("have.css", "border", "3px solid rgb(255, 0, 0)");
+    });
+
+    it("Tries to input too big destination floor", () => {
+        cy.get("#elevatorNo").type("0");
+        cy.get("#floorFrom").type("1");
+        cy.get("#floorTo").type("23");
+        cy.get(".elevatorControls > form").submit();
+
+        cy.get(".requestBox").should("not.exist");
+        cy.get("#floorTo")
+            .should("have.class", "wrongInput")
+            .should("have.css", "border", "3px solid rgb(255, 0, 0)");
     });
 });
