@@ -42,7 +42,6 @@ class ElevatorController {
     }
 
     /**
-     *
      * @returns An array of all currently loaded requests
      */
     getRequests() {
